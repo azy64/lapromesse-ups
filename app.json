@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/pack.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.tunaweza.lapromesse"
     },
     "web": {
       "favicon": "./assets/true_logo.png"
