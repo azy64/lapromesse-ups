@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "Scanner1",
+    "name": "Tunaweza-scanber",
     "slug": "Scanner1",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/pack.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/pack.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,7 +21,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/pack.png",
         "backgroundColor": "#FFFFFF"
       }
     },
