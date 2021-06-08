@@ -99,20 +99,18 @@ import {connect} from 'react-redux';
             ch+=ob.codeBar+"-"+ob.libelle+"??";
             data.push(ob)
         })
-        //data=JSON.stringify(data);
-       // console.log("l'objet ob:",data);
         
-        //console.log("url:",this.props.url);
         fetch(this.props.url+"save-package?data="+ch)
         .then(r=>{
-            //console.log("voici r:",r);
             return r.json()
         })
         .then(d=>{
             if(d=="ok")
                 alert("we saved data")
-            //console.log("données sauvegardées:",d);
-    })
+        })
+        .catch(error=>{
+            alert("We can't save now, please try again later");
+        })
 
     }
 
