@@ -50,7 +50,7 @@ class Menu extends React.Component{
             <View style={{flex:1}}>
                 <ImageBackground source={require("../assets/Dance.png")} style={styles.backgroundContainer}>
                     <View style={styles.logoContainer}>
-                        <Image source={require("../assets/true_logo.png")} style={styles.logo}/>
+                        <Image source={require("../assets/logo-1.png")} style={styles.logo}/>
                     </View>
                     <View style={styles.form}>
                     <TouchableOpacity style={styles.formButton} onPress={()=>{this.go("ScannerCode")}}>

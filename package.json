@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/checkbox": "^0.5.8",
     "axios": "^0.21.1",
     "expo": "~41.0.1",
     "expo-barcode-scanner": "^10.1.2",

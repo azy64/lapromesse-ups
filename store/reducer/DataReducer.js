@@ -1,7 +1,10 @@
 const init={
     dataScanned:[],
     counted:1,
-    url:"http://192.168.1.98/lapromesse/public/"
+    //url:"http://192.168.1.98/lapromesse/public/"
+    //url:"http://192.168.1.129/lapromesse/public/",
+    url:"http://192.168.1.88/public/",
+    removal:[],
 };
 
 function ChangeStore(state=init,action){
@@ -37,6 +40,36 @@ function ChangeStore(state=init,action){
                    url:action.value
                 }
             return nextState
+        case 'PUT_TO_REMOVE':
+            const pos=state.removal.findIndex(item=> item==action.value)
+            //console.log("valeur de pos:",pos);
+            if(pos==-1){
+                nextState={
+                    ...state,
+                    removal:[...state.removal,action.value]
+                }  
+            }
+            else{
+                nextState={
+                    ...state,
+                    removal:state.removal.filter(item=>item!==action.value)
+                }
+            }
+                
+            return nextState || state;
+        case 'NONE_TO_REMOVE':
+                
+                nextState={
+                        ...state,
+                        removal:[]
+                    }                      
+            return nextState;
+        case 'PUT_COUNT_TO_ONE':
+            nextState={
+                        ...state,
+                        counted:1
+                    }                      
+            return nextState;    
         default:
             return state;
     }

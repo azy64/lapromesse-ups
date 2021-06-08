@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "Tunaweza-scanber",
+    "name": "Tunaweza-scanner",
     "slug": "Scanner1",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/pack.png",
+    "icon": "./assets/logo-1.png",
     "splash": {
-      "image": "./assets/pack.png",
+      "image": "./assets/logo-1.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,7 +17,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tunaweza.lapromesse",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {

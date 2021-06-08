@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, ScrollView, TouchableOpacity } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import {connect} from 'react-redux';
-import axios from "axios";
 
  class ScannerCode extends React.Component{
     constructor(props) {
@@ -12,7 +11,8 @@ import axios from "axios";
             type:"",
             hadPermission:false,
             scanned:false,
-            lettreOfDay:"Z"
+            lettreOfDay:"Z",
+            lastLetter:"",
         }
        // console.log(props);
     }
@@ -25,26 +25,41 @@ import axios from "axios";
         }
         switch(n){
             case 1:
-                return "A";
+                //this.props.dispatch({type:"PUT_COUNT_TO_ONE"})
+                return "M";
             case 2:
-                return "B";
+                return "T";
             case 3:
-                return "C";
+                return "W";
             case 4:
-                return "D";
+                return "J";
             case 5:
-                return "E";
+                return "F";
             case 6:
-                return "F";                
+                return "S";                
 
             default:
-                return "Z"
+                return "D"
         }
 
-        console.log("le number of day:",d.getDay());
+        //console.log("le number of day:",d.getDay());
+    }
+    getLastLibelle=()=>{
+        fetch(this.props.url+"last")
+        .then(re=>re.json())
+        .then(data=>{
+            this.setState({lastLetter:data.libelle.substring(0,1)})
+            //console.log("lettre db:",data.libelle);
+            //console.log("lastletter",this.state.lastLetter);
+        })
     }
     componentDidMount(){
+        this.getLastLibelle();
         this.setState({lettreOfDay: this.getLetterOfDay()})
+        if(this.state.lastLetter!==this.state.lettreOfDay){
+            this.props.dispatch({type:"PUT_COUNT_TO_ONE"});
+        }
+        //console.log("voici counter:",this.props.counted);
         const t= BarCodeScanner.requestPermissionsAsync();
         t.then(retour=>{
             this.setState({scanned:retour.status=="granted"})
@@ -54,6 +69,7 @@ import axios from "axios";
         this.setState({scanned:true});
         let tmp=this.state.data;
         //this.setState({data:data,type:type})
+       
         const action={type:"ADD_CODE_BAR",value:data,libelle:this.state.lettreOfDay+""+this.props.counted};
         if(action.value.indexOf("1Z")!=-1){
             this.props.dispatch(action);
@@ -86,7 +102,7 @@ import axios from "axios";
         //data=JSON.stringify(data);
        // console.log("l'objet ob:",data);
         
-        console.log("url:",this.props.url);
+        //console.log("url:",this.props.url);
         fetch(this.props.url+"save-package?data="+ch)
         .then(r=>{
             //console.log("voici r:",r);
@@ -95,7 +111,7 @@ import axios from "axios";
         .then(d=>{
             if(d=="ok")
                 alert("we saved data")
-            console.log("données sauvegardées:",d);
+            //console.log("données sauvegardées:",d);
     })
 
     }
@@ -107,11 +123,11 @@ import axios from "axios";
                     onBarCodeScanned={this.state.scanned ? undefined : this.handleBarCodeScanned}
                     style={StyleSheet.absoluteFillObject}
                 />
-                {this.state.scanned && <Button title={'Tap to Scan Again'} onPress={() => this.setState({scanned:false})} />}
+                {this.state.scanned && <Button color="#ED008C" title={'Tap to Scan Again'} onPress={() => this.setState({scanned:false})} />}
                 <Text style={{color:"green",fontWeight:"bold",fontSize:16,padding:8}}>packages scanned:{this.props.dataScanned.length} == letter of the day:{this.state.lettreOfDay}</Text>
-                <Button title="Finish the scan" style={{marginTop:100,border:"red"}} onPress={this.saveData}/>
+                <Button color="#ED008C" title="Finish the scan" style={{marginTop:100,border:"red"}} onPress={this.saveData}/>
                 <ScrollView style={{marginHorizontal: 10,marginBottom:58 ,height:10}}>
-                    <TouchableOpacity style={{padding:5,paddingLeft:15,borderWidth:1,borderColor:"white"}}>
+                    <TouchableOpacity style={{padding:5,paddingLeft:15,paddingBottom:1,borderWidth:1,borderColor:"gray"}}>
                         {this.attributeLabel()}
                     </TouchableOpacity>
                 </ScrollView>
